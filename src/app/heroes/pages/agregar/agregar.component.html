@@ -1,1 +1,90 @@
-<p>agregar works!</p>
+<h1>
+	{{ heroe.id ? 'Editar' : 'Nuevo' }}
+	Heroe
+	<small>{{ heroe.superhero }}</small>
+</h1>
+<div fxLayout="row" fxLayoutGap="40px" fxLayout.xs="column">
+	<div class="" fxLayout="column" fxFlex="50">
+		<div fxLayout="row" fxLayout.xs="column" class="" fxLayoutGap="20px">
+			<mat-form-field fxFlex="100" fxLayout.xs="column">
+				<mat-label>Super Heroe</mat-label>
+				<input
+					matInput
+					type="text"
+					required
+					[(ngModel)]="heroe.superhero"
+				/>
+			</mat-form-field>
+
+			<mat-form-field fxFlex="100">
+				<mat-label>Alter Ego</mat-label>
+				<input
+					matInput
+					type="text"
+					required
+					[(ngModel)]="heroe.alter_ego"
+				/>
+			</mat-form-field>
+		</div>
+
+		<mat-form-field fxFlex="100">
+			<mat-label>Primera Aparicion</mat-label>
+			<input
+				matInput
+				type="text"
+				required
+				[(ngModel)]="heroe.first_appearance"
+			/>
+		</mat-form-field>
+
+		<mat-form-field fxFlex="100">
+			<mat-label>Personajes</mat-label>
+			<input
+				matInput
+				type="text"
+				required
+				[(ngModel)]="heroe.characters"
+			/>
+		</mat-form-field>
+
+		<mat-form-field fxFlex="100">
+			<mat-label>Creador</mat-label>
+			<mat-select [(ngModel)]="heroe.publisher" required>
+				<mat-option
+					*ngFor="let publisher of publishers"
+					[value]="publisher.id"
+				>
+					{{ publisher.desc }}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<mat-form-field fxFlex="100">
+			<mat-label>Foto ULR</mat-label>
+			<input matInput type="url" required [(ngModel)]="heroe.alt_img" />
+		</mat-form-field>
+
+		<br />
+
+		<div fxLayout>
+			<button (click)="guardar()" mat-raised-button color="primary">
+				{{ heroe.id ? 'Actualizar' : 'Crear' }}
+			</button>
+
+			<span class="spacer"></span>
+
+			<button
+				*ngIf="heroe.id"
+				mat-raised-button
+				color="warn"
+				(click)="borrarHeroe()"
+			>
+				<mat-icon>remove</mat-icon>
+				Borrar
+			</button>
+		</div>
+	</div>
+	<div class="" fxFlex="50">
+		<img [src]="heroe | imagenHeroes" alt="" />
+	</div>
+</div>
